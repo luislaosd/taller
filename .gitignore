@@ -1,0 +1,19 @@
+# Env & secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies (cuando exista código)
+node_modules/
+.venv/
+venv/
+__pycache__/
+
+# Build & IDE
+dist/
+.vercel/
+.idea/
+.vscode/
+*.log
+.DS_Store
+Thumbs.db
