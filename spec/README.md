@@ -6,6 +6,8 @@ Documentación para implementación. **Fuente de verdad de negocio:** [../propue
 |-----------|-----|
 | [requirements.md](./requirements.md) | Requerimientos funcionales y criterios de aceptación (trazados a R-001…R-016) |
 | [design.md](./design.md) | Arquitectura, rutas, modelo de datos propuesto, API, despliegue |
+| [brand-palette.md](./brand-palette.md) | Paleta de colores y tokens de marca (logo DOSH motor) |
+| [brand-tokens.css](./brand-tokens.css) | Variables CSS de referencia para el frontend |
 | [tasks.md](./tasks.md) | Checklist de implementación por fases (4 semanas de la propuesta) |
 | [PENDIENTES.md](./PENDIENTES.md) | Decisiones no cerradas en la propuesta — **consultar al product owner antes de asumir** |
 

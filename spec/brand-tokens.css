@@ -1,0 +1,14 @@
+/**
+ * DOSH motor S.A.C. — tokens de marca (referencia).
+ * Ver brand-palette.md. Importar en frontend al iniciar implementación.
+ */
+:root {
+  --color-brand-blue: #0000f8;
+  --color-brand-blue-soft: #0b0bef;
+  --color-brand-blue-muted: #3030c8;
+  --color-brand-orange: #f86000;
+  --color-brand-orange-soft: #fb6605;
+  --color-brand-white: #ffffff;
+  --color-brand-neutral: #c8d0d8;
+  --color-text-body: #111827;
+}

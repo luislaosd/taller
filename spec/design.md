@@ -1,6 +1,21 @@
 # Diseño técnico — Sitio web taller (v1)
 
-**Referencia:** [propuesta-cliente.md](../propuesta-cliente.md), [requirements.md](./requirements.md).
+**Referencia:** [propuesta-cliente.md](../propuesta-cliente.md), [requirements.md](./requirements.md), [brand-palette.md](./brand-palette.md).
+
+## Identidad visual (UI)
+
+Marca: **DOSH motor S.A.C.** Logo: [../logo.jpeg](../logo.jpeg).
+
+| Rol | Token | Hex |
+|-----|-------|-----|
+| Primario | `brand-blue` | `#0000F8` |
+| Acento / CTA | `brand-orange` | `#F86000` |
+| Fondo | `brand-white` | `#FFFFFF` |
+| Texto cuerpo | `text-body` | `#111827` |
+
+Detalle de usos, accesibilidad, Tailwind y CSS: **[brand-palette.md](./brand-palette.md)**. Tokens listos para copiar: [brand-tokens.css](./brand-tokens.css).
+
+La Web_Pública y el Panel_Admin DEBERÁN usar esta paleta en componentes base (navbar, botones, footer, formularios admin) salvo acuerdo distinto con el cliente.
 
 ## Visión general
 

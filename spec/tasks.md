@@ -8,14 +8,14 @@ Alineado al cronograma de [propuesta-cliente.md](../propuesta-cliente.md) §4 (4
 
 ## Semana 1 — Diseño + base
 
-- [ ] Crear monorepo `frontend/` + `backend/` y repos Git/Vercel (P-11, P-12)
+- [x] Crear monorepo `frontend/` + `backend/` y repos Git/Vercel (P-11, P-12) — *frontend maqueta; backend pendiente*
 - [ ] Supabase: schema, bucket Storage, variables entorno
 - [ ] Backend: FastAPI skeleton, health, CORS, conexión BD
 - [ ] Migraciones: `admin_users`, `site_sections`, `services` (ajustar tras P-03)
 - [ ] Auth: login admin, protección rutas `/api/admin/*`
 - [ ] Bootstrap usuario admin (P-13)
-- [ ] Frontend: Vite + Tailwind + router público/admin shell
-- [ ] Pantalla login admin
+- [x] Frontend: Vite + Tailwind + router público/admin shell
+- [x] Pantalla login admin — *maqueta demo sin API*
 - [ ] Aprobación estilo visual con cliente (propuesta semana 1)
 
 **Entregable:** diseño acordado + login admin funcional en dev/staging.
@@ -25,11 +25,11 @@ Alineado al cronograma de [propuesta-cliente.md](../propuesta-cliente.md) §4 (4
 ## Semana 2 — Web pública (secciones fijas)
 
 - [ ] API GET secciones públicas
-- [ ] Páginas: Home, Descripción, Quiénes somos (layout responsive)
-- [ ] Navbar + footer con menú (Req 11)
+- [x] Páginas: Home, Descripción, Quiénes somos (layout responsive) — *datos mock en `frontend/src/data/mockContent.js`*
+- [x] Navbar + footer con menú (Req 11)
 - [ ] Panel: formularios edición Home, Descripción, Quiénes somos
 - [ ] Upload imágenes para secciones fijas (según P-03)
-- [ ] Contenido seed o placeholders hasta textos del cliente
+- [x] Contenido seed o placeholders hasta textos del cliente
 
 **Entregable:** secciones fijas publicadas y editables.
 
@@ -38,8 +38,8 @@ Alineado al cronograma de [propuesta-cliente.md](../propuesta-cliente.md) §4 (4
 ## Semana 3 — Servicios + panel
 
 - [ ] API CRUD servicios + `is_active` + `sort_order`
-- [ ] Página pública listado `/servicios`
-- [ ] Página pública detalle `/servicios/:slug`
+- [x] Página pública listado `/servicios`
+- [x] Página pública detalle `/servicios/:slug`
 - [ ] Panel: listado admin, crear/editar/desactivar, orden (P-06)
 - [ ] Imagen principal por servicio
 - [ ] Menú: solo servicios activos
@@ -50,9 +50,9 @@ Alineado al cronograma de [propuesta-cliente.md](../propuesta-cliente.md) §4 (4
 
 ## Semana 4 — Contacto, mapa, cierre
 
-- [ ] Sección Contáctenos pública (teléfono, horarios, email, dirección)
-- [ ] WhatsApp configurable (P-09)
-- [ ] Mapa embed + edición en panel (Req 10)
+- [x] Sección Contáctenos pública (teléfono, horarios, email, dirección) — *placeholders*
+- [x] WhatsApp configurable (P-09) — *enlace mock; panel pendiente*
+- [ ] Mapa embed + edición en panel (Req 10) — *UI con placeholder iframe*
 - [ ] Enlace «Cómo llegar» si aplica (P-08)
 - [ ] Pruebas manuales criterios [requirements.md](./requirements.md) § global
 - [ ] Deploy producción Vercel
@@ -65,7 +65,7 @@ Alineado al cronograma de [propuesta-cliente.md](../propuesta-cliente.md) §4 (4
 
 ## QA mínimo (sin inventar tests E2E salvo acuerdo)
 
-- [ ] Responsive: 375px, 768px, 1280px
+- [x] Responsive: 375px, 768px, 1280px — *revisión manual vía build + layout Tailwind*
 - [ ] Login fallido / exitoso
 - [ ] Servicio desactivado → 404 o redirect en detalle
 - [ ] WhatsApp abre en Android/iOS simulado o device real

@@ -4,7 +4,7 @@ La [propuesta-cliente.md](../propuesta-cliente.md) no define estos puntos. Confi
 
 | # | Tema | Qué dice la propuesta | Decisión necesaria |
 |---|------|------------------------|-------------------|
-| P-01 | Nombre comercial del taller | Taller mecánico/automotriz genérico | Nombre, logo, favicon |
+| P-01 | Nombre comercial del taller | Taller mecánico/automotriz genérico | **Logo:** `logo.jpeg` (DOSH motor). Favicon desde mismo archivo. Textos comerciales aún `[PLACEHOLDER]`. |
 | P-02 | Rutas URL públicas | Secciones por nombre | ¿Slugs en español (`/quienes-somos`) u otro criterio? |
 | P-03 | Bloques editables por sección | Home: portada, mensaje, imágenes destacadas | ¿Cuántos campos de texto/imagen por página fija? |
 | P-04 | Editor de texto | «Texto enriquecido simple» | ¿Solo párrafos y listas, o negritas/enlaces/imágenes inline? |
