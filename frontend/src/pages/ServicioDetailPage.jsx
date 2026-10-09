@@ -1,12 +1,14 @@
 import { Link, useParams } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
-import { getServiceBySlug, whatsappUrl } from '../data/mockContent'
+import { useSiteContent } from '../context/SiteContentContext'
+import { buildWhatsappUrl } from '../utils/whatsapp'
 import { ExternalButtonLink } from '../components/ui/Button'
 import NotFoundPage from './NotFoundPage'
 
 export default function ServicioDetailPage() {
   const { slug } = useParams()
-  const service = getServiceBySlug(slug)
+  const { activeServices, contact } = useSiteContent()
+  const service = activeServices.find((s) => s.slug === slug)
 
   if (!service) {
     return <NotFoundPage message="Este servicio no está disponible o fue desactivado." />
@@ -33,7 +35,7 @@ export default function ServicioDetailPage() {
           <p className="text-lg leading-relaxed text-text-body/85">{service.body}</p>
         </div>
         <div className="mt-10">
-          <ExternalButtonLink href={whatsappUrl()} variant="primary">
+          <ExternalButtonLink href={buildWhatsappUrl(contact)} variant="primary">
             Consultar por WhatsApp
           </ExternalButtonLink>
         </div>

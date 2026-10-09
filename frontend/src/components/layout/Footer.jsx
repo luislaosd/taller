@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
 import { MapPin, Phone, Mail, Clock } from 'lucide-react'
-import { contact } from '../../data/mockContent'
+import { useSiteContent } from '../../context/SiteContentContext'
 
 export default function Footer() {
+  const { contact } = useSiteContent()
   const year = new Date().getFullYear()
 
   return (

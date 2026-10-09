@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
 import PageHero from '../components/ui/PageHero'
-import { activeServices } from '../data/mockContent'
+import { useSiteContent } from '../context/SiteContentContext'
 
 export default function ServiciosPage() {
-  const list = activeServices()
+  const { activeServices: list } = useSiteContent()
 
   return (
     <>

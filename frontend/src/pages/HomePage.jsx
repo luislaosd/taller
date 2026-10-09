@@ -1,7 +1,8 @@
 import { Gauge, MessageSquare, Wrench, ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { ButtonLink, ExternalButtonLink } from '../components/ui/Button'
-import { sections, activeServices, whatsappUrl } from '../data/mockContent'
+import { useSiteContent } from '../context/SiteContentContext'
+import { buildWhatsappUrl } from '../utils/whatsapp'
 
 const iconMap = {
   gauge: Gauge,
@@ -10,8 +11,10 @@ const iconMap = {
 }
 
 export default function HomePage() {
+  const { sections, activeServices, contact } = useSiteContent()
   const { home } = sections
-  const featured = activeServices().slice(0, 3)
+  const featured = activeServices.slice(0, 3)
+  const wa = buildWhatsappUrl(contact)
 
   return (
     <>
@@ -29,7 +32,7 @@ export default function HomePage() {
           </h1>
           <p className="mt-5 max-w-xl text-lg text-white/90 leading-relaxed">{home.subtitle}</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <ExternalButtonLink href={whatsappUrl()} variant="primary">
+            <ExternalButtonLink href={wa} variant="primary">
               {home.ctaLabel}
             </ExternalButtonLink>
             <ButtonLink to="/servicios" variant="onDark">
@@ -112,7 +115,7 @@ export default function HomePage() {
             Escríbenos por WhatsApp o visita nuestra sección de contacto con mapa y horarios.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <ExternalButtonLink href={whatsappUrl()} variant="primary">
+            <ExternalButtonLink href={wa} variant="primary">
               WhatsApp
             </ExternalButtonLink>
             <ButtonLink to="/contacto" variant="onDark">

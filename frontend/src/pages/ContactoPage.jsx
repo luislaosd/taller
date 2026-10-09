@@ -1,9 +1,11 @@
 import { MapPin, Phone, Mail, Clock, Navigation } from 'lucide-react'
 import PageHero from '../components/ui/PageHero'
 import { ExternalButtonLink } from '../components/ui/Button'
-import { contact, whatsappUrl, PLACEHOLDER } from '../data/mockContent'
+import { useSiteContent } from '../context/SiteContentContext'
+import { buildWhatsappUrl } from '../utils/whatsapp'
+import { PLACEHOLDER } from '../data/mockContent'
 
-function MapsBlock() {
+function MapsBlock({ contact }) {
   if (contact.mapsEmbedSrc) {
     return (
       <iframe
@@ -31,6 +33,8 @@ function MapsBlock() {
 }
 
 export default function ContactoPage() {
+  const { contact } = useSiteContent()
+  const wa = buildWhatsappUrl(contact)
   const showDirections =
     contact.directionsUrl && !contact.directionsUrl.startsWith(PLACEHOLDER)
 
@@ -42,7 +46,7 @@ export default function ContactoPage() {
         subtitle="Teléfono, correo, horarios y ubicación del taller."
         compact
       >
-        <ExternalButtonLink href={whatsappUrl()} variant="primary">
+        <ExternalButtonLink href={wa} variant="primary">
           WhatsApp
         </ExternalButtonLink>
       </PageHero>
@@ -73,7 +77,7 @@ export default function ContactoPage() {
                 </li>
               </ul>
               <div className="mt-6 flex flex-wrap gap-3">
-                <ExternalButtonLink href={whatsappUrl()} variant="primary" className="text-sm">
+                <ExternalButtonLink href={wa} variant="primary" className="text-sm">
                   Abrir WhatsApp
                 </ExternalButtonLink>
                 {showDirections && (
@@ -86,7 +90,7 @@ export default function ContactoPage() {
           </div>
 
           <div className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-brand-neutral/50">
-            <MapsBlock />
+            <MapsBlock contact={contact} />
           </div>
         </div>
       </section>

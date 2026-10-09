@@ -1,7 +1,8 @@
 import PageHero from '../components/ui/PageHero'
-import { sections } from '../data/mockContent'
+import { useSiteContent } from '../context/SiteContentContext'
 
 export default function QuienesSomosPage() {
+  const { sections } = useSiteContent()
   const { quienesSomos } = sections
 
   return (

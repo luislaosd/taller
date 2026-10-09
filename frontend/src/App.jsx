@@ -8,7 +8,12 @@ import ServicioDetailPage from './pages/ServicioDetailPage'
 import ContactoPage from './pages/ContactoPage'
 import NotFoundPage from './pages/NotFoundPage'
 import AdminLoginPage from './pages/admin/AdminLoginPage'
+import AdminRoute from './components/admin/AdminRoute'
+import AdminLayout from './components/admin/AdminLayout'
 import AdminDashboardPage from './pages/admin/AdminDashboardPage'
+import AdminSectionPage from './pages/admin/AdminSectionPage'
+import AdminServicesPage from './pages/admin/AdminServicesPage'
+import AdminServiceEditPage from './pages/admin/AdminServiceEditPage'
 
 function App() {
   return (
@@ -23,7 +28,15 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
       </Route>
       <Route path="admin/login" element={<AdminLoginPage />} />
-      <Route path="admin" element={<AdminDashboardPage />} />
+      <Route element={<AdminRoute />}>
+        <Route path="admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboardPage />} />
+          <Route path="secciones/:key" element={<AdminSectionPage />} />
+          <Route path="servicios" element={<AdminServicesPage />} />
+          <Route path="servicios/nuevo" element={<AdminServiceEditPage />} />
+          <Route path="servicios/:id" element={<AdminServiceEditPage />} />
+        </Route>
+      </Route>
     </Routes>
   )
 }
