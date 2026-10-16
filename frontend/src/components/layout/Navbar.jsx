@@ -22,14 +22,14 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-brand-blue shadow-lg shadow-brand-blue/20">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 sm:py-4 lg:px-8">
         <Link to="/" className="flex shrink-0 items-center gap-3" onClick={() => setOpen(false)}>
           <img
             src="/logo.jpeg"
             alt="DOSH motor S.A.C."
-            className="h-10 w-auto max-w-[180px] object-contain object-left md:h-12"
-            width={180}
-            height={48}
+            className="h-14 w-auto max-w-[220px] object-contain object-left sm:h-16 sm:max-w-[260px] md:h-[72px] md:max-w-[300px]"
+            width={300}
+            height={72}
           />
         </Link>
 
