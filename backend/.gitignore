@@ -6,4 +6,6 @@ __pycache__/
 uploads/
 *.pyc
 .vercel
-.env*
+.env
+.env.*
+!.env.example
