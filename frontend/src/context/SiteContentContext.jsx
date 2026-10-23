@@ -1,39 +1,86 @@
-import { createContext, useCallback, useContext, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { loadPersistedContent, persistContent, resetContentToDefaults } from '../data/contentStore'
+import { useCmsApi } from '../config/apiConfig'
+import {
+  fetchPublicContent,
+  syncServicesApi,
+  updateContactApi,
+  updateSectionApi,
+} from '../services/cmsApi'
 
 const SiteContentContext = createContext(null)
 
 export function SiteContentProvider({ children }) {
   const [content, setContent] = useState(() => loadPersistedContent())
+  const [loading, setLoading] = useState(useCmsApi)
+  const [loadError, setLoadError] = useState(null)
+
+  useEffect(() => {
+    if (!useCmsApi) return
+    let cancelled = false
+    ;(async () => {
+      try {
+        setLoading(true)
+        const data = await fetchPublicContent()
+        if (!cancelled) {
+          setContent({
+            sections: data.sections,
+            contact: data.contact,
+            services: data.services,
+          })
+          setLoadError(null)
+        }
+      } catch (e) {
+        if (!cancelled) {
+          setLoadError(e.message)
+          console.error('CMS API:', e)
+        }
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   const saveAll = useCallback((next) => {
     setContent(next)
-    persistContent(next)
+    if (!useCmsApi) persistContent(next)
   }, [])
 
-  const updateSections = useCallback(
-    (patch) => {
-      setContent((prev) => {
-        const next = { ...prev, sections: { ...prev.sections, ...patch } }
-        persistContent(next)
-        return next
-      })
-    },
-    [],
-  )
-
-  const updateContact = useCallback((patch) => {
+  const updateSections = useCallback(async (patch) => {
+    if (useCmsApi) {
+      await Promise.all(
+        Object.entries(patch).map(([key, data]) => updateSectionApi(key, data)),
+      )
+    }
     setContent((prev) => {
-      const next = { ...prev, contact: { ...prev.contact, ...patch } }
-      persistContent(next)
+      const next = { ...prev, sections: { ...prev.sections, ...patch } }
+      if (!useCmsApi) persistContent(next)
       return next
     })
   }, [])
 
-  const updateServices = useCallback((services) => {
+  const updateContact = useCallback(async (patch) => {
+    if (useCmsApi) {
+      await updateContactApi(patch)
+    }
     setContent((prev) => {
-      const next = { ...prev, services }
-      persistContent(next)
+      const next = { ...prev, contact: { ...prev.contact, ...patch } }
+      if (!useCmsApi) persistContent(next)
+      return next
+    })
+  }, [])
+
+  const updateServices = useCallback(async (services) => {
+    let list = services
+    if (useCmsApi) {
+      list = await syncServicesApi(services)
+    }
+    setContent((prev) => {
+      const next = { ...prev, services: list }
+      if (!useCmsApi) persistContent(next)
       return next
     })
   }, [])
@@ -59,13 +106,26 @@ export function SiteContentProvider({ children }) {
       contact: content.contact,
       services: content.services,
       activeServices,
+      loading,
+      loadError,
+      cmsOnline: useCmsApi && !loadError,
       updateSections,
       updateContact,
       updateServices,
       saveAll,
       resetToDefaults,
     }),
-    [content, activeServices, updateSections, updateContact, updateServices, saveAll, resetToDefaults],
+    [
+      content,
+      activeServices,
+      loading,
+      loadError,
+      updateSections,
+      updateContact,
+      updateServices,
+      saveAll,
+      resetToDefaults,
+    ],
   )
 
   return <SiteContentContext.Provider value={value}>{children}</SiteContentContext.Provider>

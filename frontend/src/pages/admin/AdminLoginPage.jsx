@@ -17,10 +17,11 @@ export default function AdminLoginPage() {
     if (isAuthenticated) navigate('/admin', { replace: true })
   }, [isAuthenticated, navigate])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
-    if (login(user, pass)) {
+    const ok = await login(user, pass)
+    if (ok) {
       const dest = location.state?.from || '/admin'
       navigate(dest, { replace: true })
     } else {

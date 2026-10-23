@@ -65,7 +65,7 @@ export default function AdminSectionPage() {
   return (
     <div className="mx-auto max-w-2xl">
       <h1 className="text-2xl font-bold text-brand-blue">Editar: {title}</h1>
-      <p className="mt-1 text-sm text-text-body/70">Guardar publica los cambios en la web pública (este navegador).</p>
+      <p className="mt-1 text-sm text-text-body/70">Guardar publica los cambios en la web (API o este navegador en maqueta).</p>
 
       <form onSubmit={handleSave} className="mt-8 space-y-5 rounded-xl bg-white p-6 shadow-sm ring-1 ring-brand-neutral/40">
         {key === 'home' && (
