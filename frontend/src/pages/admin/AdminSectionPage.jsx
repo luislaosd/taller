@@ -40,7 +40,7 @@ export default function AdminSectionPage() {
     }
   }, [key, sectionKey, sections, contact])
 
-  if (!KEY_MAP[key]) {
+  if (!(key in KEY_MAP)) {
     return <Navigate to="/admin" replace />
   }
 
