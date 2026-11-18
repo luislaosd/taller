@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { MapPin, Phone, Mail, Clock } from 'lucide-react'
 import { useSiteContent } from '../../context/SiteContentContext'
+import SiteLogo from './SiteLogo'
 
 export default function Footer() {
   const { contact } = useSiteContent()
@@ -10,13 +11,9 @@ export default function Footer() {
     <footer className="mt-auto bg-brand-blue text-white">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-3 lg:px-8">
         <div>
-          <img
-            src="/logo.jpeg"
-            alt="DOSH motor S.A.C."
-            className="mb-4 h-12 w-auto max-w-[200px] object-contain object-left brightness-110"
-            width={200}
-            height={48}
-          />
+          <div className="mb-4">
+            <SiteLogo variant="footer" />
+          </div>
           <p className="text-sm text-white/80 leading-relaxed">
             Taller automotriz — maqueta web v1. Contenido comercial pendiente de confirmación con el cliente.
           </p>

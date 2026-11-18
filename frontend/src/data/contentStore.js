@@ -17,7 +17,11 @@ export function loadPersistedContent() {
     if (!raw) return defaultState()
     const parsed = JSON.parse(raw)
     return {
-      sections: { ...defaultState().sections, ...parsed.sections },
+      sections: {
+        ...defaultState().sections,
+        ...parsed.sections,
+        home: { ...defaultState().sections.home, ...(parsed.sections?.home || {}) },
+      },
       contact: { ...defaultState().contact, ...parsed.contact },
       services: Array.isArray(parsed.services) ? parsed.services : defaultState().services,
       serviceSlugRedirects:

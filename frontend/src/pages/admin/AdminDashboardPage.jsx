@@ -3,7 +3,7 @@ import { FileText, Wrench, MapPin, RotateCcw } from 'lucide-react'
 import { useSiteContent } from '../../context/SiteContentContext'
 
 const cards = [
-  { to: '/admin/secciones/home', icon: FileText, title: 'Home', desc: 'Portada, mensaje e imagen hero' },
+  { to: '/admin/secciones/home', icon: FileText, title: 'Home', desc: 'Logo del sitio, portada e imagen hero' },
   { to: '/admin/secciones/descripcion', icon: FileText, title: 'Descripción', desc: 'Presentación del taller' },
   { to: '/admin/secciones/quienes-somos', icon: FileText, title: 'Quiénes somos', desc: 'Historia y valores' },
   { to: '/admin/secciones/contacto', icon: MapPin, title: 'Contáctenos', desc: 'Teléfono, WhatsApp, mapa embed' },

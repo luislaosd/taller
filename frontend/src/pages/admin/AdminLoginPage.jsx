@@ -4,6 +4,7 @@ import { Lock, AlertCircle } from 'lucide-react'
 import { Button } from '../../components/ui/Button'
 import { useAdminAuth } from '../../context/AdminAuthContext'
 import { adminCredentials } from '../../config/authConfig'
+import SiteLogo from '../../components/layout/SiteLogo'
 
 export default function AdminLoginPage() {
   const navigate = useNavigate()
@@ -34,11 +35,7 @@ export default function AdminLoginPage() {
       <div className="flex flex-1 items-center justify-center px-4 py-12">
         <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl ring-1 ring-brand-neutral/50">
           <div className="mb-6 text-center">
-            <img
-              src="/logo.jpeg"
-              alt="DOSH motor S.A.C."
-              className="mx-auto h-14 w-auto max-w-[220px] object-contain"
-            />
+            <SiteLogo variant="login" />
             <p className="mt-4 flex items-center justify-center gap-2 text-sm font-semibold text-brand-blue">
               <Lock size={16} /> Panel administrativo
             </p>

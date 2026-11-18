@@ -1,19 +1,15 @@
 import { useState } from 'react'
-import { NavLink, Link, useLocation } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import { activeServices } from '../../data/mockContent'
+import SiteLogo from './SiteLogo'
 
 const navLinkClass = ({ isActive }) =>
   `text-sm font-semibold transition ${
     isActive ? 'text-brand-orange' : 'text-white/90 hover:text-white'
   }`
 
-const LOGO_DEFAULT = '/logo.jpeg'
-const LOGO_HOME = '/logo_home.png'
-
 export default function Navbar() {
-  const { pathname } = useLocation()
-  const isHome = pathname === '/'
   const [open, setOpen] = useState(false)
   const serviceCount = activeServices().length
 
@@ -29,17 +25,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 border-b border-white/10 bg-brand-blue shadow-lg shadow-brand-blue/20">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 sm:py-4 lg:px-8">
         <Link to="/" className="flex shrink-0 items-center gap-3" onClick={() => setOpen(false)}>
-          <img
-            src={isHome ? LOGO_HOME : LOGO_DEFAULT}
-            alt="DOSH motor S.A.C."
-            className={
-              isHome
-                ? 'h-12 w-auto max-w-[180px] object-contain object-left sm:h-14 sm:max-w-[200px] md:h-16 md:max-w-[220px]'
-                : 'h-14 w-auto max-w-[220px] object-contain object-left sm:h-16 sm:max-w-[260px] md:h-[72px] md:max-w-[300px]'
-            }
-            width={isHome ? 220 : 300}
-            height={isHome ? 64 : 72}
-          />
+          <SiteLogo variant="nav" />
         </Link>
 
         <nav className="hidden items-center gap-6 lg:flex" aria-label="Principal">

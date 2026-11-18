@@ -14,10 +14,13 @@ import AdminDashboardPage from './pages/admin/AdminDashboardPage'
 import AdminSectionPage from './pages/admin/AdminSectionPage'
 import AdminServicesPage from './pages/admin/AdminServicesPage'
 import AdminServiceEditPage from './pages/admin/AdminServiceEditPage'
+import SiteBrandingHead from './components/layout/SiteBrandingHead'
 
 function App() {
   return (
-    <Routes>
+    <>
+      <SiteBrandingHead />
+      <Routes>
       <Route element={<PublicLayout />}>
         <Route index element={<HomePage />} />
         <Route path="descripcion" element={<DescripcionPage />} />
@@ -38,6 +41,7 @@ function App() {
         </Route>
       </Route>
     </Routes>
+    </>
   )
 }
 

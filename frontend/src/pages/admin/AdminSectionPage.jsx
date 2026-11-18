@@ -76,6 +76,12 @@ export default function AdminSectionPage() {
             <Field label="Subtítulo">
               <textarea className={inputClass} rows={3} value={form.subtitle || ''} onChange={(e) => setForm({ ...form, subtitle: e.target.value })} />
             </Field>
+            <Field
+              label="Logo del sitio"
+              hint="Navbar, pie de página, admin y favicon. Ej: /logo_home.png o URL tras subir imagen."
+            >
+              <input className={inputClass} value={form.logo || ''} onChange={(e) => setForm({ ...form, logo: e.target.value })} />
+            </Field>
             <Field label="Imagen hero (URL o ruta)" hint="Ej: /images/mock/hero.jpg">
               <input className={inputClass} value={form.heroImage || ''} onChange={(e) => setForm({ ...form, heroImage: e.target.value })} />
             </Field>

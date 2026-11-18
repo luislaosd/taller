@@ -11,6 +11,8 @@ def _resolve_section_images(sections: dict) -> dict:
     home = dict(out.get("home") or {})
     if home.get("heroImage"):
         home["heroImage"] = resolve_media_url(home["heroImage"])
+    if home.get("logo"):
+        home["logo"] = resolve_media_url(home["logo"])
     out["home"] = home
     desc = dict(out.get("descripcion") or {})
     if desc.get("image"):

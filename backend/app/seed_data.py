@@ -21,6 +21,7 @@ DEFAULT_SECTIONS = {
             "Calidad, transparencia y atención personalizada en cada servicio."
         ),
         "heroImage": "/images/mock/hero.jpg",
+        "logo": "/logo_home.png",
         "highlights": [
             {
                 "title": "Diagnóstico preciso",

@@ -10,6 +10,7 @@ import {
   ExternalLink,
 } from 'lucide-react'
 import { useAdminAuth } from '../../context/AdminAuthContext'
+import SiteLogo from '../layout/SiteLogo'
 
 const navClass = ({ isActive }) =>
   `flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition ${
@@ -23,7 +24,7 @@ export default function AdminLayout() {
     <div className="flex min-h-screen flex-col bg-slate-100 md:flex-row">
       <aside className="bg-brand-blue text-white md:w-64 md:shrink-0">
         <div className="border-b border-white/10 p-4">
-          <img src="/logo.jpeg" alt="DOSH motor" className="h-10 w-auto max-w-[160px] object-contain" />
+          <SiteLogo variant="admin" alt="DOSH motor" />
           <p className="mt-2 text-xs text-white/70">Panel de configuración · maqueta</p>
         </div>
         <nav className="flex flex-row gap-1 overflow-x-auto p-3 md:flex-col md:overflow-visible" aria-label="Admin">
