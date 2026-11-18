@@ -78,6 +78,11 @@ export default function AdminServiceEditPage() {
         <div>
           <label className="block text-sm font-semibold text-brand-blue">Slug (URL)</label>
           <input className={inputClass} required value={form.slug} onChange={(e) => setForm({ ...form, slug: slugify(e.target.value) })} />
+          <p className="mt-1 text-xs text-text-body/65">
+            Puedes cambiarlo cuando adaptes la plantilla. La URL pública será{' '}
+            <span className="font-mono">/servicios/{form.slug || '…'}</span>. Los enlaces con el slug
+            anterior redirigen solos al nuevo.
+          </p>
         </div>
         <div>
           <label className="block text-sm font-semibold text-brand-blue">Resumen (listado)</label>

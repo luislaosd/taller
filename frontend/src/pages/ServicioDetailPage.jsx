@@ -1,14 +1,20 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import { useSiteContent } from '../context/SiteContentContext'
 import { buildWhatsappUrl } from '../utils/whatsapp'
 import { ExternalButtonLink } from '../components/ui/Button'
 import NotFoundPage from './NotFoundPage'
+import { getServiceSlugRedirectTarget } from '../utils/serviceSlugRedirects'
 
 export default function ServicioDetailPage() {
   const { slug } = useParams()
-  const { activeServices, contact } = useSiteContent()
+  const { activeServices, contact, serviceSlugRedirects } = useSiteContent()
   const service = activeServices.find((s) => s.slug === slug)
+  const redirectSlug = !service ? getServiceSlugRedirectTarget(slug, serviceSlugRedirects) : null
+
+  if (redirectSlug) {
+    return <Navigate to={`/servicios/${redirectSlug}`} replace />
+  }
 
   if (!service) {
     return <NotFoundPage message="Este servicio no está disponible o fue desactivado." />

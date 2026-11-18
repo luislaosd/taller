@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 
 from app.models import Service, SiteContent
+from app.services.service_slug import build_service_slug_redirects
 from app.seed_data import DEFAULT_CONTACT, DEFAULT_SECTIONS
 from app.utils.storage import resolve_media_url
 
@@ -54,4 +55,5 @@ def get_site_content(db: Session, resolve_images: bool = True) -> dict:
         "contact": contact,
         "sections": sections,
         "services": [service_to_dict(s, resolve_images=resolve_images) for s in services],
+        "serviceSlugRedirects": build_service_slug_redirects(db),
     }

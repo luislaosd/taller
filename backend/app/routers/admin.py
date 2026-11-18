@@ -2,7 +2,8 @@ from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.models import AdminUser, Service, SiteContent
+from app.models import AdminUser, Service, ServiceSlugAlias, SiteContent
+from app.services.service_slug import apply_service_slug_change, ensure_slug_available_for_create
 from app.schemas.content import ContactUpdate, SectionPatch, ServiceCreate, ServiceUpdate
 from app.services.content_service import get_site_content, service_to_dict
 from app.utils.deps import get_current_admin
@@ -60,8 +61,7 @@ def create_service(
     db: Session = Depends(get_db),
     _admin: AdminUser = Depends(get_current_admin),
 ):
-    if db.query(Service).filter(Service.slug == body.slug).first():
-        raise HTTPException(status_code=400, detail="Slug ya existe")
+    ensure_slug_available_for_create(db, body.slug)
     row = Service(
         slug=body.slug,
         title=body.title,
@@ -88,6 +88,9 @@ def update_service(
     if not row:
         raise HTTPException(status_code=404, detail="Servicio no encontrado")
     payload = body.model_dump(exclude_unset=True)
+    new_slug = payload.pop("slug", None)
+    if new_slug is not None:
+        apply_service_slug_change(db, row, new_slug)
     field_map = {
         "sortOrder": "sort_order",
         "isActive": "is_active",
@@ -109,6 +112,9 @@ def delete_service(
     row = db.query(Service).filter(Service.id == service_id).first()
     if not row:
         raise HTTPException(status_code=404, detail="Servicio no encontrado")
+    db.query(ServiceSlugAlias).filter(ServiceSlugAlias.service_id == service_id).delete(
+        synchronize_session=False
+    )
     db.delete(row)
     db.commit()
 

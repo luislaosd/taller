@@ -7,6 +7,7 @@ import {
   updateContactApi,
   updateSectionApi,
 } from '../services/cmsApi'
+import { mergeSlugRedirectsOnChange } from '../utils/serviceSlugRedirects'
 
 const SiteContentContext = createContext(null)
 
@@ -27,6 +28,7 @@ export function SiteContentProvider({ children }) {
             sections: data.sections,
             contact: data.contact,
             services: data.services,
+            serviceSlugRedirects: data.serviceSlugRedirects || {},
           })
           setLoadError(null)
         }
@@ -75,11 +77,17 @@ export function SiteContentProvider({ children }) {
 
   const updateServices = useCallback(async (services) => {
     let list = services
+    let redirectsFromApi
     if (useCmsApi) {
       list = await syncServicesApi(services)
+      const refreshed = await fetchPublicContent()
+      redirectsFromApi = refreshed.serviceSlugRedirects || {}
     }
     setContent((prev) => {
-      const next = { ...prev, services: list }
+      const serviceSlugRedirects = useCmsApi
+        ? redirectsFromApi
+        : mergeSlugRedirectsOnChange(prev.serviceSlugRedirects, prev.services, list)
+      const next = { ...prev, services: list, serviceSlugRedirects }
       if (!useCmsApi) persistContent(next)
       return next
     })
@@ -105,6 +113,7 @@ export function SiteContentProvider({ children }) {
       sections: content.sections,
       contact: content.contact,
       services: content.services,
+      serviceSlugRedirects: content.serviceSlugRedirects || {},
       activeServices,
       loading,
       loadError,

@@ -8,6 +8,7 @@ const defaultState = () => ({
   sections: clone(defaultSections),
   contact: clone(defaultContact),
   services: clone(defaultServices),
+  serviceSlugRedirects: {},
 })
 
 export function loadPersistedContent() {
@@ -19,6 +20,10 @@ export function loadPersistedContent() {
       sections: { ...defaultState().sections, ...parsed.sections },
       contact: { ...defaultState().contact, ...parsed.contact },
       services: Array.isArray(parsed.services) ? parsed.services : defaultState().services,
+      serviceSlugRedirects:
+        parsed.serviceSlugRedirects && typeof parsed.serviceSlugRedirects === 'object'
+          ? parsed.serviceSlugRedirects
+          : {},
     }
   } catch {
     return defaultState()
