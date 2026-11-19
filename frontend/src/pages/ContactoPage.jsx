@@ -4,13 +4,15 @@ import { ExternalButtonLink } from '../components/ui/Button'
 import { useSiteContent } from '../context/SiteContentContext'
 import { buildWhatsappUrl } from '../utils/whatsapp'
 import { PLACEHOLDER } from '../data/mockContent'
+import { normalizeMapsEmbedSrc } from '../utils/mapsEmbed'
 
 function MapsBlock({ contact }) {
-  if (contact.mapsEmbedSrc) {
+  const embedSrc = normalizeMapsEmbedSrc(contact.mapsEmbedSrc)
+  if (embedSrc) {
     return (
       <iframe
         title="Ubicación DOSH motor"
-        src={contact.mapsEmbedSrc}
+        src={embedSrc}
         className="h-full min-h-[280px] w-full border-0 md:min-h-[360px]"
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"

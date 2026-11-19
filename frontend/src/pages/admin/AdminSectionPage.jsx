@@ -3,6 +3,7 @@ import { useParams, Navigate } from 'react-router-dom'
 import { Save } from 'lucide-react'
 import { Button } from '../../components/ui/Button'
 import { useSiteContent } from '../../context/SiteContentContext'
+import { mapsEmbedInputHint, normalizeMapsEmbedSrc } from '../../utils/mapsEmbed'
 
 const KEY_MAP = {
   home: 'home',
@@ -47,7 +48,8 @@ export default function AdminSectionPage() {
   const handleSave = (e) => {
     e.preventDefault()
     if (key === 'contacto') {
-      updateContact(form)
+      const mapsEmbedSrc = normalizeMapsEmbedSrc(form.mapsEmbedSrc)
+      updateContact({ ...form, mapsEmbedSrc })
     } else {
       updateSections({ [sectionKey]: form })
     }
@@ -173,8 +175,22 @@ export default function AdminSectionPage() {
             <Field label="Mensaje WhatsApp (URL-encoded opcional)">
               <input className={inputClass} value={form.whatsappMessage || ''} onChange={(e) => setForm({ ...form, whatsappMessage: e.target.value })} />
             </Field>
-            <Field label="URL embed mapa (src del iframe)" hint="Pegar solo la URL del src de Google Maps">
-              <textarea className={inputClass} rows={2} value={form.mapsEmbedSrc || ''} onChange={(e) => setForm({ ...form, mapsEmbedSrc: e.target.value || null })} />
+            <Field
+              label="Mapa Google (embed)"
+              hint="En Google Maps: Compartir → Insertar un mapa. Pega el código HTML completo, la URL …/maps/embed?pb=… o el enlace normal del lugar (lo convertimos al guardar)."
+            >
+              <textarea
+                className={inputClass}
+                rows={3}
+                value={form.mapsEmbedSrc || ''}
+                onChange={(e) => setForm({ ...form, mapsEmbedSrc: e.target.value || null })}
+              />
+              {mapsEmbedInputHint(form.mapsEmbedSrc) && (
+                <p className="mt-1 text-xs font-semibold text-amber-700">{mapsEmbedInputHint(form.mapsEmbedSrc)}</p>
+              )}
+              {form.mapsEmbedSrc && normalizeMapsEmbedSrc(form.mapsEmbedSrc) && (
+                <p className="mt-2 text-xs text-green-700">Vista previa al guardar en la página Contáctenos.</p>
+              )}
             </Field>
             <Field label="Enlace «Cómo llegar» (opcional)">
               <input className={inputClass} value={form.directionsUrl || ''} onChange={(e) => setForm({ ...form, directionsUrl: e.target.value })} />
