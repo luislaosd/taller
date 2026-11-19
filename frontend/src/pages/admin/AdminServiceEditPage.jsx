@@ -34,28 +34,47 @@ export default function AdminServiceEditPage() {
   const { services, updateServices } = useSiteContent()
   const [form, setForm] = useState(emptyService)
   const [saved, setSaved] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [saveError, setSaveError] = useState('')
 
   useEffect(() => {
     if (isNew) {
-      setForm(emptyService())
-      return
+      const maxOrder = services.reduce((max, s) => Math.max(max, s.sortOrder ?? 0), 0)
+      setForm({ ...emptyService(), sortOrder: maxOrder + 1 })
     }
+  }, [id, isNew]) // eslint-disable-line react-hooks/exhaustive-deps -- pantalla vacía solo al entrar a /nuevo
+
+  useEffect(() => {
+    if (isNew) return
     const found = services.find((s) => String(s.id) === id)
     if (found) setForm({ ...found })
   }, [id, isNew, services])
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault()
-    const slug = form.slug || slugify(form.title)
+    setSaveError('')
+    const slug = (form.slug || slugify(form.title)).trim()
+    if (!slug) {
+      setSaveError('Indica un título o un slug para la URL del servicio.')
+      return
+    }
     const payload = { ...form, slug }
 
-    if (isNew) {
-      updateServices([...services, payload])
-    } else {
-      updateServices(services.map((s) => (s.id === payload.id ? payload : s)))
+    try {
+      setSaving(true)
+      if (isNew) {
+        const newItem = { ...payload, id: `new-${Date.now()}` }
+        await updateServices([...services, newItem])
+      } else {
+        await updateServices(services.map((s) => (s.id === payload.id ? payload : s)))
+      }
+      setSaved(true)
+      setTimeout(() => navigate('/admin/servicios'), 800)
+    } catch (err) {
+      setSaveError(err.message || 'No se pudo guardar el servicio.')
+    } finally {
+      setSaving(false)
     }
-    setSaved(true)
-    setTimeout(() => navigate('/admin/servicios'), 800)
   }
 
   return (
@@ -63,7 +82,7 @@ export default function AdminServiceEditPage() {
       <Link to="/admin/servicios" className="inline-flex items-center gap-1 text-sm font-semibold text-brand-blue hover:text-brand-orange">
         <ArrowLeft size={16} /> Volver al listado
       </Link>
-      <h1 className="mt-4 text-2xl font-bold text-brand-blue">{isNew ? 'Nuevo servicio' : 'Editar servicio'}</h1>
+      <h1 className="mt-4 text-2xl font-bold text-brand-blue">{isNew ? 'Nuevo Servicio' : 'Editar servicio'}</h1>
 
       <form onSubmit={handleSave} className="mt-6 space-y-4 rounded-xl bg-white p-6 shadow-sm ring-1 ring-brand-neutral/40">
         <div>
@@ -100,8 +119,13 @@ export default function AdminServiceEditPage() {
           <input type="checkbox" checked={form.isActive} onChange={(e) => setForm({ ...form, isActive: e.target.checked })} />
           Servicio activo (visible en web)
         </label>
-        <Button type="submit" variant="primary">
-          <Save size={18} /> {saved ? 'Guardado…' : 'Guardar'}
+        {saveError && (
+          <p className="text-sm font-semibold text-red-600" role="alert">
+            {saveError}
+          </p>
+        )}
+        <Button type="submit" variant="primary" disabled={saving}>
+          <Save size={18} /> {saving ? 'Guardando…' : saved ? 'Guardado…' : isNew ? 'Crear servicio' : 'Guardar'}
         </Button>
       </form>
     </div>

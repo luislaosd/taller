@@ -36,7 +36,6 @@ function App() {
           <Route index element={<AdminDashboardPage />} />
           <Route path="secciones/:key" element={<AdminSectionPage />} />
           <Route path="servicios" element={<AdminServicesPage />} />
-          <Route path="servicios/nuevo" element={<AdminServiceEditPage />} />
           <Route path="servicios/:id" element={<AdminServiceEditPage />} />
         </Route>
       </Route>

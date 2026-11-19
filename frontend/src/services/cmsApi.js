@@ -93,8 +93,12 @@ export async function syncServicesApi(services) {
 
   const result = []
   for (const s of services) {
-    const isDbId = typeof s.id === 'number' && s.id > 0 && s.id < 1_000_000_000
-    if (isDbId && serverIds.has(s.id)) {
+    const isDbId =
+      typeof s.id === 'number' &&
+      Number.isInteger(s.id) &&
+      s.id > 0 &&
+      serverIds.has(s.id)
+    if (isDbId) {
       const updated = await updateServiceApi(s.id, s)
       result.push(updated)
       nextIds.add(s.id)
